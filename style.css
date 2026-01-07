@@ -147,7 +147,7 @@ nav {
 nav h1 a {
   width: 243px;
   height: 39px;
-  background: url(/assets/logoImg.png) no-repeat center / contain;
+  background: url(./assets/logoImg.png) no-repeat center / contain;
   display: block;
   text-indent: 101%;
   overflow: hidden;
