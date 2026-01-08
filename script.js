@@ -1,28 +1,28 @@
-// 狀態初始化
-let data = [
-  { content: "把冰箱發霉的檸檬拿去丟" },
-  { content: "打電話叫媽媽匯款給我" },
-  { content: "整理電腦資料夾" },
-  { content: "繳電費水費瓦斯費" },
-  { content: "約vicky禮拜三泡溫泉" },
-  { content: "約ada禮拜四吃晚餐" },
-];
+let data = [];
 
 function renderData() {
   let str = "";
-  data.forEach(function (item, index) {
-    str += `
-      <li>
-        <label class="todoList_label">
-          <input class="todoList_input" type="checkbox" value="true">
-          <span>${item.content}</span>
-        </label>
-        <a href="#" class="delete_todo" data-num="${index}">
-          <i class="fa fa-times"></i>
-        </a>
-      </li>
-    `;
-  });
+  if (data.length === 0) {
+  str = `
+    <li class="no-data">
+      <p>目前尚無代辦事項</p>
+    </li>
+  `;
+  } else {
+    data.forEach(function (item, index) {
+      str += `
+        <li>
+          <label class="todoList_label">
+            <input class="todoList_input" type="checkbox" value="true">
+            <span>${item.content}</span>
+          </label>
+          <a href="#" class="delete_todo" data-num="${index}">
+            <i class="fa fa-times"></i>
+          </a>
+        </li>
+      `;
+    });
+  }
   const list = document.querySelector(".todoList_item");
   list.innerHTML = str;
 }

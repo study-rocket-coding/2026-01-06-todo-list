@@ -510,6 +510,11 @@ nav ul a span {
   opacity: 1;
 }
 
+.todoList_list .todoList_items li:has(p) {
+  justify-content: center;
+  min-height: 300px;
+}
+
 .todoList_list .todoList_statistics {
   display: -webkit-box;
   display: -ms-flexbox;
