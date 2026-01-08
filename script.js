@@ -52,22 +52,16 @@ createTodo.addEventListener("click", createTodoItem);
 // 刪除待辦功能
 const deleteTodo = document.querySelector(".todoList_item");
 function deleteTodoItem(e) {
-  // 找到最接近的 .delete_todo 元素
   const deleteBtn = e.target.closest(".delete_todo");
   
-  // 如果沒有找到刪除按鈕就直接中斷
   if (!deleteBtn) return;
 
-  // 只對刪除按鈕阻止預設行為
   e.preventDefault();
 
-  // 彈出確認視窗，存回傳值
   const isConfirmed = confirm("確認刪除代辦事項？");
   
-  // 如果使用者按了取消，就直接結束
   if (!isConfirmed) return;
 
-  // 按了確認才刪除
   let num = deleteBtn.getAttribute("data-num");
   data.splice(num, 1);
 
