@@ -31,8 +31,8 @@ renderData();
 
 // 新增待辦功能
 const text = document.querySelector(".text");
-const addTodo = document.querySelector(".add_todo");
-function addTodoItem(e) {
+const createTodo = document.querySelector(".create_todo");
+function createTodoItem(e) {
   e.preventDefault();
 
   if (text.value == "") {
@@ -47,4 +47,4 @@ function addTodoItem(e) {
   renderData();
 }
 
-addTodo.addEventListener("click", addTodoItem);
+createTodo.addEventListener("click", createTodoItem);
