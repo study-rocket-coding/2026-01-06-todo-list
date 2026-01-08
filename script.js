@@ -28,3 +28,23 @@ function renderData() {
 }
 
 renderData();
+
+// 新增待辦功能
+const text = document.querySelector(".text");
+const addTodo = document.querySelector(".add_todo");
+function addTodoItem(e) {
+  e.preventDefault();
+
+  if (text.value == "") {
+    alert("請輸入內容");
+    return;
+  }
+
+  let obj = {};
+  obj.content = text.value;
+  data.push(obj);
+
+  renderData();
+}
+
+addTodo.addEventListener("click", addTodoItem);
