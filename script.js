@@ -2,11 +2,11 @@ let data = [];
 
 function renderData() {
   const filteredData = getFilteredData();
+  const list = document.querySelector(".todoList_item");
+  list.innerHTML = "";
 
-  let str = "";
-  
   if (filteredData.length === 0) {
-    str = `
+    list.innerHTML = `
       <li class="no-data">
         <p>目前尚無代辦事項</p>
       </li>
@@ -14,22 +14,23 @@ function renderData() {
   } else {
     filteredData.forEach(function (item) {
       const originalIndex = data.indexOf(item);
-      str += `
-        <li>
-          <label class="todoList_label">
-            <input class="todoList_input" type="checkbox" ${item.completed ? "checked" : ""} data-index="${originalIndex}">
-            <span>${item.content}</span>
-          </label>
-          <a href="#" class="delete_todo" data-num="${originalIndex}">
-            <i class="fa fa-times"></i>
-          </a>
-        </li>
+      const li = document.createElement("li");
+
+      li.innerHTML = `
+        <label class="todoList_label">
+          <input class="todoList_input" type="checkbox" ${ item.completed ? "checked" : "" } data-index="${originalIndex}">
+          <span></span>
+        </label>
+        <a href="#" class="delete_todo" data-num="${originalIndex}">
+          <i class="fa fa-times"></i>
+        </a>
       `;
+
+      li.querySelector("span").textContent = item.content;
+
+      list.appendChild(li);
     });
   }
-  
-  const list = document.querySelector(".todoList_item");
-  list.innerHTML = str;
 
   updateCompletedCount();
 }
@@ -53,7 +54,7 @@ function createTodoItem(e) {
 
   let obj = {
     content: todoContent,
-    completed: false  // 預設為未完成
+    completed: false // 預設為未完成
   };
 
   data.push(obj);
@@ -67,9 +68,9 @@ createTodo.addEventListener("click", createTodoItem);
 const deleteTodo = document.querySelector(".todoList_item");
 function deleteTodoItem(e) {
   const deleteBtn = e.target.closest(".delete_todo");
-  
+
   if (!deleteBtn) return;
-  
+
   e.preventDefault();
 
   const isConfirmed = confirm("確認刪除代辦事項？");
@@ -88,13 +89,13 @@ deleteTodo.addEventListener("click", deleteTodoItem);
 function getFilteredData() {
   const activeTab = document.querySelector("#filterTabs a.active");
   let currentFilter = activeTab ? activeTab.getAttribute("data-status") : "all";
-  
+
   if (currentFilter === "pending") {
-    return data.filter(item => !item.completed);
+    return data.filter((item) => !item.completed);
   } else if (currentFilter === "completed") {
-    return data.filter(item => item.completed);
+    return data.filter((item) => item.completed);
   }
-  
+
   return data;
 }
 
@@ -102,13 +103,13 @@ function getFilteredData() {
 const todoListItem = document.querySelector(".todoList_item");
 function toggleTodoStatus(e) {
   const checkbox = e.target;
-  
+
   if (!checkbox.classList.contains("todoList_input")) return;
-  
+
   const index = checkbox.getAttribute("data-index");
-  
+
   data[index].completed = !data[index].completed;
-  
+
   renderData();
 }
 
@@ -116,21 +117,21 @@ todoListItem.addEventListener("change", toggleTodoStatus);
 
 // 篩選顯示功能
 const filterTabs = document.getElementById("filterTabs");
-filterTabs.addEventListener("click", function(e) {
+filterTabs.addEventListener("click", function (e) {
   const clickedLink = e.target.closest("a");
   if (!clickedLink) return;
-  
+
   e.preventDefault();
-  
-  filterTabs.querySelectorAll("a").forEach(a => a.classList.remove("active"));
+
+  filterTabs.querySelectorAll("a").forEach((a) => a.classList.remove("active"));
   clickedLink.classList.add("active");
-  
+
   renderData();
 });
 
 // 更新完成數量功能
 function updateCompletedCount() {
-  const completedCount = data.filter(item => item.completed).length;
+  const completedCount = data.filter((item) => item.completed).length;
   const countEl = document.getElementById("completed-count");
   countEl.textContent = completedCount;
 }
